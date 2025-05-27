@@ -21,8 +21,12 @@ export interface PostsApiResponse {
 export interface Comment {
   id: number;
   postId: number;
+  writerNick: string;
   contents: string;
-  parentId: number | null;
+  createdAt: string;
+  updatedAt?: string;
+  parentId?: number | null;
+  children?: Comment[];
 }
 
 export interface CommentWithChildren extends Comment {
@@ -34,4 +38,15 @@ export interface PostDetailResponse {
   title: string;
   contents: string;
   comments: Comment[];
+}
+
+export interface RankingItemData {
+  postId: number;
+  postTitle: string;
+  count: number; // 조회수 또는 추천수
+}
+
+export interface CreatePostData {
+  title: string;
+  contents: string;
 }

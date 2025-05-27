@@ -40,3 +40,38 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Modal Animation */
+.animate-modalShow {
+  animation: modalShow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes modalShow {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* NewPostForm 모달 내부 스타일 (기존 App.tsx의 것을 참고하여 필요시 추가) */
+.modal-content-custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content-custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.modal-content-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

@@ -1,27 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { PageState } from '../types';
 
 interface PaginationProps {
   pageState: PageState;
   onPageChange: (pageNumber: number) => void;
-  totalPages: number; // totalPages를 props로 받도록 추가
+  totalPages: number;
 }
 
 const Pagination: React.FC<PaginationProps> = ({ pageState, onPageChange, totalPages }) => {
   const { startPage, endPage, currentPage, prevBlockPage, nextBlockPage } = pageState;
+  const [jumpToPageInput, setJumpToPageInput] = useState('');
 
   const pageNumbers: number[] = [];
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(i);
   }
 
-  // 페이지네이션을 표시할 필요가 없는 경우 (총 페이지가 1개 이하)
   if (totalPages <= 1) {
     return null;
   }
 
+  const handleJumpToPageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setJumpToPageInput(e.target.value);
+  };
+
+  const handleJumpToPageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const pageNum = parseInt(jumpToPageInput, 10);
+    if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+      onPageChange(pageNum);
+      setJumpToPageInput('');
+    } else {
+      alert(`유효한 페이지 번호(1-${totalPages})를 입력해주세요.`);
+      setJumpToPageInput('');
+    }
+  };
+
   return (
-    <nav aria-label="Page navigation" className="flex justify-center mt-8 mb-4">
+    <nav aria-label="Page navigation" className="flex flex-col sm:flex-row justify-center items-center mt-8 mb-4 space-y-3 sm:space-y-0 sm:space-x-2">
       <div className="inline-flex items-center -space-x-px">
         {startPage > 1 && (
           <button
@@ -56,8 +72,30 @@ const Pagination: React.FC<PaginationProps> = ({ pageState, onPageChange, totalP
           </button>
         )}
       </div>
+
+      {totalPages > PAGES_PER_BLOCK_THRESHOLD && (
+        <form onSubmit={handleJumpToPageSubmit} className="inline-flex items-center ml-0 sm:ml-4">
+          <input 
+            type="number" 
+            value={jumpToPageInput} 
+            onChange={handleJumpToPageInputChange} 
+            className="w-16 px-2 py-2 text-sm border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="페이지"
+            min="1"
+            max={totalPages}
+          />
+          <button 
+            type="submit" 
+            className="px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-r-md border border-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 transition-colors"
+          >
+            이동
+          </button>
+        </form>
+      )}
     </nav>
   );
 };
+
+const PAGES_PER_BLOCK_THRESHOLD = 5;
 
 export default Pagination;
