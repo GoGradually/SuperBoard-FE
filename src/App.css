@@ -41,7 +41,8 @@
   color: #888;
 }
 
-/* Modal Animation */
+/* Modal Animation - 임시 주석 처리 */
+/*
 .animate-modalShow {
   animation: modalShow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
@@ -56,6 +57,7 @@
     transform: scale(1) translateY(0);
   }
 }
+*/
 
 /* NewPostForm 모달 내부 스타일 (기존 App.tsx의 것을 참고하여 필요시 추가) */
 .modal-content-custom-scrollbar::-webkit-scrollbar {

@@ -56,20 +56,21 @@ export const deletePostAPI = async (postId: number): Promise<void> => {
   // 204 No Content는 성공, 별도 .json() 호출 없음
 };
 
-export const createCommentAPI = async (postId: number, commentData: { contents: string; parentId?: number | null }): Promise<Comment> => {
-  const response = await fetch(`${POST_API_URL}/${postId}/comment`, {
+export const createCommentAPI = async (postId: number, commentData: { contents: string; parentId?: number | null }): Promise<string | null> => {
+  const response = await fetch(`${POST_API_URL}/${postId}/comments`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(commentData),
   });
-  if (!response.ok) {
+
+  if (response.status !== 201) { 
     throw await handleApiResponseError(response, `게시글 ID ${postId}에 댓글 생성 실패`);
   }
-  return response.json();
+  return response.headers.get('Location'); 
 };
 
-export const updateCommentAPI = async (postId: number, commentId: number, commentData: { contents: string }): Promise<Comment> => {
-  const response = await fetch(`${POST_API_URL}/${postId}/comment/${commentId}`, {
+export const updateCommentAPI = async (postId: number, commentId: number, commentData: { contents: string }): Promise<PostDetailResponse> => {
+  const response = await fetch(`${POST_API_URL}/${postId}/comments/${commentId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(commentData),
@@ -81,24 +82,23 @@ export const updateCommentAPI = async (postId: number, commentId: number, commen
 };
 
 export const deleteCommentAPI = async (postId: number, commentId: number): Promise<void> => {
-  const response = await fetch(`${POST_API_URL}/${postId}/comment/${commentId}`, { method: 'DELETE' });
+  const response = await fetch(`${POST_API_URL}/${postId}/comments/${commentId}`, { method: 'DELETE' });
   if (!response.ok && response.status !== 204) { // 204는 성공으로 간주
     throw await handleApiResponseError(response, `댓글 ID ${commentId} 삭제 실패`);
   }
 };
 
-export const createPostAPI = async (postData: CreatePostData): Promise<PostDetailResponse> => {
+export const createPostAPI = async (postData: CreatePostData): Promise<string | null> => {
   try {
     const response = await fetch(POST_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(postData),
     });
-    if (!response.ok) {
+    if (response.status !== 201) { 
       throw await handleApiResponseError(response, '게시글 생성에 실패했습니다.');
     }
-    const newPost: PostDetailResponse = await response.json(); 
-    return newPost;
+    return response.headers.get('Location');
   } catch (error) {
     console.error('Error creating post:', error);
     throw error;

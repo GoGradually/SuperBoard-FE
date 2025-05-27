@@ -8,6 +8,7 @@ interface NewPostFormProps {
 }
 
 const NewPostForm: React.FC<NewPostFormProps> = ({ onClose }) => {
+  // console.log('[NewPostForm.tsx] Component rendering/re-rendering.'); // 디버깅 로그 제거 또는 주석 처리
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -21,13 +22,14 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ onClose }) => {
     }
     setIsSubmitting(true);
     setError(null);
+    // console.log('[NewPostForm.tsx] handleSubmit: Attempting to create post with title:', title);
     try {
       // await new Promise(resolve => setTimeout(resolve, 1000)); // 가상 지연 시간
-      await createPostAPI({ title, contents }); 
-      // alert('새 글이 성공적으로 작성되었습니다.'); // alert 대신 부모에게 알림
+      const result = await createPostAPI({ title, contents }); 
+      // console.log('[NewPostForm.tsx] handleSubmit: createPostAPI successful. Result (URI):', result, 'Calling onClose(true).');
       onClose(true); // 성공 시 true 전달하여 목록 새로고침
     } catch (err) {
-      console.error('Error creating post:', err);
+      // console.error('[NewPostForm.tsx] handleSubmit: Error creating post:', err);
       if (err instanceof ApiError) {
         setError(err.backendMessage || '글 작성 중 오류가 발생했습니다.');
       } else {
@@ -39,8 +41,11 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="container mx-auto p-4 font-sans bg-white shadow-md rounded-lg mt-4">
-      <h1 className="text-2xl font-bold mb-4 text-gray-700">새 게시글 작성</h1>
+    <div 
+      className="p-6 bg-white shadow-md rounded-lg" // 디버깅 스타일 제거, 페이지 컨텐츠에 적합한 스타일로 변경
+      // style={{}} // 인라인 스타일 제거
+    >
+      <h1 className="text-2xl font-bold mb-6 text-gray-700">새 게시글 작성</h1> {/* (테스트) 문구 제거, mb-6으로 늘림 */}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
@@ -62,9 +67,9 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ onClose }) => {
           </label>
           <textarea
             id="contents"
+            rows={10}
             value={contents}
             onChange={(e) => setContents(e.target.value)}
-            rows={10}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             required
             disabled={isSubmitting}

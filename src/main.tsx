@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </div>
       )}
     >
-      <App />
+    <App />
     </ErrorBoundary>
   </React.StrictMode>,
 )

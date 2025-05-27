@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { createCommentAPI } from '../services/postApi'; // createCommentAPI 임포트
+import { ApiError } from '../services/apiErrors'; // ApiError 임포트
 
 interface CommentFormProps {
   postId: number; // 댓글이 달릴 게시글 ID
   parentId?: number | null; // 대댓글인 경우 부모 댓글 ID
-  onSubmitSuccess: (commentData: { contents: string; parentId?: number | null }) => Promise<void> | void;
+  onSubmitSuccess: () => void; // 타입 변경: 인자 없이 호출
   onCancel?: () => void; // 폼 취소 시 호출 (대댓글 폼 닫기 등)
   submitButtonText?: string;
   placeholderText?: string;
@@ -21,25 +23,32 @@ const CommentForm: React.FC<CommentFormProps> = ({
 }) => {
   const [contents, setContents] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const [error, setError] = useState<string | null>(null); // 필요시 에러 상태 추가
+  const [error, setError] = useState<string | null>(null); // 에러 상태 추가
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!contents.trim()) {
-      // alert('댓글 내용을 입력해주세요.'); // 또는 setError
+      setError('댓글 내용을 입력해주세요.');
       return;
     }
     setIsSubmitting(true);
-    // setError(null);
+    setError(null);
     try {
-      await onSubmitSuccess({ contents, parentId });
+      // createCommentAPI 직접 호출
+      await createCommentAPI(postId, { contents, parentId });
       setContents(''); // 성공 후 입력 필드 초기화
-      if (onCancel && parentId) { // 대댓글 폼의 경우 성공 후 닫기
-        onCancel();
-      }
-    } catch (err) {
+      onSubmitSuccess(); // 성공 콜백 호출 (인자 없음)
+      
+      // 대댓글 폼의 경우 성공 후 폼을 닫는 로직은 onSubmitSuccess 콜백 내에서 (CommentItem에서) 처리하거나,
+      // onCancel을 호출하는 기존 로직을 유지할 수 있습니다.
+      // 여기서는 CommentItem의 handleReplySubmitSuccess에서 setShowReplyForm(false)를 하므로 추가 작업 불필요.
+    } catch (err: any) {
       console.error('Error submitting comment form:', err);
-      // setError('댓글 등록에 실패했습니다.'); // UI에 에러 표시 로직 추가 가능
+      if (err instanceof ApiError) {
+        setError(err.backendMessage || '댓글 등록 중 오류가 발생했습니다.');
+      } else {
+        setError('댓글 등록에 실패했습니다. 네트워크 연결을 확인해주세요.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -57,6 +66,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
         autoFocus={autoFocus}
         disabled={isSubmitting}
       />
+      {error && <p className="text-xs text-red-600 mt-1">{error}</p>} {/* 에러 메시지 표시 */}
       <div className="flex justify-end items-center mt-2 space-x-2">
         {onCancel && (
            <button

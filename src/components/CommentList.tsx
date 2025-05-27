@@ -22,18 +22,14 @@ const CommentList: React.FC<CommentListProps> = ({ postId, commentsData, onComme
     setCommentTree(buildCommentTree(commentsData));
   }, [commentsData]);
 
-  const handleCommentCreated = async (newCommentData: { contents: string; parentId?: number | null }) => {
+  const handleCommentCreated = async () => {
     setError(null);
     try {
-      await createCommentAPI(postId, newCommentData);
-      if (onCommentsUpdated) onCommentsUpdated();
-    } catch (err: any) {
-      console.error('Error creating comment in CommentList:', err);
-      if (err instanceof ApiError) {
-        setError(err.backendMessage || '댓글 작성 중 오류가 발생했습니다.');
-      } else {
-        setError('댓글을 작성하는 동안 오류가 발생했습니다. 다시 시도해주세요.');
+      if (onCommentsUpdated) {
+        onCommentsUpdated();
       }
+    } catch (err: any) {
+      console.error('Error in handleCommentCreated (should be handled by CommentForm):', err);
     }
   };
 

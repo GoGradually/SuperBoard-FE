@@ -9,7 +9,7 @@ interface CommentItemProps {
   postId: number;
   onCommentUpdated: (commentId: number, updatedContents: string) => Promise<void> | void;
   onCommentDeleted: (commentId: number) => Promise<void> | void;
-  onReplyCreated: (newReply: CommentType) => void;
+  onReplyCreated: () => void;
   level: number;
 }
 
@@ -71,8 +71,8 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
     setReplyError(null);
   };
 
-  const handleReplySubmitSuccess = (/* newReply: CommentType */) => {
-    onReplyCreated(comment as CommentType);
+  const handleReplySubmitSuccess = () => {
+    onReplyCreated();
     setShowReplyForm(false);
   };
 

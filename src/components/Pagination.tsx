@@ -40,36 +40,36 @@ const Pagination: React.FC<PaginationProps> = ({ pageState, onPageChange, totalP
     <nav aria-label="Page navigation" className="flex flex-col sm:flex-row justify-center items-center mt-8 mb-4 space-y-3 sm:space-y-0 sm:space-x-2">
       <div className="inline-flex items-center -space-x-px">
         {startPage > 1 && (
-          <button
+            <button
             onClick={() => onPageChange(prevBlockPage)}
             className="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-150"
-            aria-label="Previous block"
-          >
+              aria-label="Previous block"
+            >
             &laquo;
-          </button>
+            </button>
         )}
         {pageNumbers.map((number) => (
-          <button
+            <button
             key={number}
             onClick={() => onPageChange(number)}
             className={`py-2 px-3 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-150 ${currentPage === number
                 ? 'text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 z-10'
-                : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700'
+                  : 'text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700'
               } ${pageNumbers.length === 1 ? 'rounded-lg' : (number === startPage && startPage === 1) || (number === startPage && startPage > 1 && !pageNumbers.includes(prevBlockPage)) ? 'rounded-l-lg' : ''} ${number === endPage && endPage === totalPages || (number === endPage && endPage < totalPages && !pageNumbers.includes(nextBlockPage)) ? 'rounded-r-lg' : ''}`
-            }
+                }
             aria-current={currentPage === number ? 'page' : undefined}
-          >
+            >
             {number}
-          </button>
+            </button>
         ))}
         {endPage < totalPages && (
-          <button
+            <button
             onClick={() => onPageChange(nextBlockPage)}
             className="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-150"
-            aria-label="Next block"
-          >
+              aria-label="Next block"
+            >
             &raquo;
-          </button>
+            </button>
         )}
       </div>
 

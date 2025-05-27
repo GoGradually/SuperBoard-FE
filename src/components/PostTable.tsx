@@ -20,18 +20,18 @@ const PostTable: React.FC<PostTableProps> = ({ posts, onPostClick }) => {
     <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4">
       <table className="w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-100">
-          <tr>
+        <tr>
             <th scope="col" className="px-6 py-3">
-              ID
-            </th>
+            ID
+          </th>
             <th scope="col" className="px-6 py-3">
-              제목
-            </th>
+            제목
+          </th>
             <th scope="col" className="px-6 py-3 text-center">
-              댓글 수
-            </th>
-          </tr>
-        </thead>
+            댓글 수
+          </th>
+        </tr>
+      </thead>
         <tbody>
           {posts.map((post) => (
             <tr key={post.postId} className="bg-white border-b hover:bg-gray-50">
@@ -51,10 +51,10 @@ const PostTable: React.FC<PostTableProps> = ({ posts, onPostClick }) => {
               </td>
             </tr>
           ))}
-        </tbody>
-      </table>
-    </div>
-  );
+      </tbody>
+    </table>
+  </div>
+);
 };
 
 export default PostTable;
