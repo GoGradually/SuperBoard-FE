@@ -1,4 +1,4 @@
-import type { PostLine, PostsApiResponse, PostDetailResponse, CreatePostData } from '../types/index';
+import type { PostsApiResponse, PostDetailResponse, CreatePostData } from '../types/index';
 import { API_BASE_URL, handleApiResponseError } from './apiClient';
 
 const POST_API_URL = `${API_BASE_URL}/post`;

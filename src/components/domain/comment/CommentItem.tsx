@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { CommentWithChildren, Comment as CommentType } from '../../../types/index';
+import type { CommentWithChildren } from '../../../types/index';
 import CommentForm from './CommentForm';
 import { ApiError } from '../../../services/apiErrors'; // 에러 처리를 위해 유지할 수 있음
 

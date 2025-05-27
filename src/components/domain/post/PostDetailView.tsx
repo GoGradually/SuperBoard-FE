@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { PostDetailResponse, Comment as CommentType } from '../../../types/index';
+import type { PostDetailResponse } from '../../../types/index';
 import { fetchPostDetailAPI, updatePostAPI, deletePostAPI } from '../../../services/post.api';
 import CommentList from '../comment/CommentList';
 import { ApiError } from '../../../services/apiErrors';
