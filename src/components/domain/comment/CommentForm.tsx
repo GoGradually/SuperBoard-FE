@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { createCommentAPI } from '../services/postApi'; // createCommentAPI 임포트
-import { ApiError } from '../services/apiErrors'; // ApiError 임포트
+import { createCommentAPI } from '../../../services/comment.api'; // 경로 수정
+import { ApiError } from '../../../services/apiErrors'; // ApiError 임포트
 
 interface CommentFormProps {
   postId: number; // 댓글이 달릴 게시글 ID

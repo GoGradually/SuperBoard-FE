@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import type { Comment as CommentType, CommentWithChildren } from '../types';
+import type { Comment as CommentType, CommentWithChildren } from '../../../types/comment.types';
 import CommentItem from './CommentItem';
 import CommentForm from './CommentForm';
-import { createCommentAPI, updateCommentAPI, deleteCommentAPI } from '../services/postApi';
-import { buildCommentTree } from '../utils/commentUtils';
-import { ApiError } from '../services/apiErrors';
+import { updateCommentAPI, deleteCommentAPI } from '../../../services/comment.api';
+import { buildCommentTree } from '../../../utils/commentUtils';
+import { ApiError } from '../../../services/apiErrors';
 
 interface CommentListProps {
   postId: number;

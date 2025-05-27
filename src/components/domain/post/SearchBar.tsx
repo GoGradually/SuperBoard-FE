@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { SearchType } from '../services/postApi'; // SearchType 임포트
+import type { SearchType } from '../../../services/post.api'; // SearchType 임포트
 
 interface SearchBarProps {
   onSearch: (searchType: SearchType, query: string) => void;

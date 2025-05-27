@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import type { PostDetailResponse, Comment as CommentType } from '../types';
-import { fetchPostDetailAPI, updatePostAPI, deletePostAPI } from '../services/postApi';
-import CommentList from './CommentList';
-import { ApiError } from '../services/apiErrors';
+import type { PostDetailResponse } from '../../../types/index';
+import { fetchPostDetailAPI, updatePostAPI, deletePostAPI } from '../../../services/post.api';
+import CommentList from '../comment/CommentList';
+import { ApiError } from '../../../services/apiErrors';
 
 interface PostDetailViewProps {
   postId: number;

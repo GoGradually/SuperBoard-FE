@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { PageState } from '../types';
+import type { PageState } from '../../../types';
 
 interface PaginationProps {
   pageState: PageState;

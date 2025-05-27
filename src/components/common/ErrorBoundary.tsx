@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
-import { ApiError } from '../services/apiErrors';
+import { ApiError } from '../../services/apiErrors';
 
 interface Props {
   children: ReactNode;
