@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import type { CommentWithChildren, Comment as CommentType } from '../types';
-import { updateCommentAPI, deleteCommentAPI, createCommentAPI } from '../services/postApi';
+import type { CommentWithChildren, Comment as CommentType } from '../../../types/index';
 import CommentForm from './CommentForm';
-import { ApiError } from '../services/apiErrors';
+import { ApiError } from '../../../services/apiErrors'; // 에러 처리를 위해 유지할 수 있음
 
 interface CommentItemProps {
   comment: CommentWithChildren;
@@ -112,7 +111,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
           onSubmitSuccess={handleReplySubmitSuccess}
           onCancel={handleReplyFormToggle}
           submitButtonText="답글 등록"
-          placeholderText={`${comment.writerNick}님에게 답글 남기기...`}
+          placeholderText={`${comment.username}님에게 답글 남기기...`}
           autoFocus={true}
         />
       )}

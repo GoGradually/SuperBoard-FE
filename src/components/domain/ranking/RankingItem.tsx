@@ -1,5 +1,5 @@
 import React from 'react';
-import type { RankingItemData } from '../types';
+import type { RankingItemData } from '../../../types';
 
 interface RankingItemProps {
   item: RankingItemData;

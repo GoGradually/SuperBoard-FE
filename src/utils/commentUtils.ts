@@ -1,4 +1,4 @@
-import type { Comment, CommentWithChildren } from '../types';
+import type { Comment, CommentWithChildren } from '../types/index';
 
 export const buildCommentTree = (comments: Comment[]): CommentWithChildren[] => {
   const commentsById: { [key: number]: CommentWithChildren } = {};

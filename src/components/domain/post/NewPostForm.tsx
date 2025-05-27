@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import type { CreatePostData } from '../types'; // 필요시 임포트
-import { createPostAPI } from '../services/postApi'; // createPostAPI 임포트
-import { ApiError } from '../services/apiErrors'; // ApiError 임포트
+import { createPostAPI } from '../../../services/post.api'; // 경로 수정
+import { ApiError } from '../../../services/apiErrors'; // ApiError 임포트
 
 interface NewPostFormProps {
   onClose: (refreshNeeded?: boolean) => void; // refreshNeeded 파라미터 추가

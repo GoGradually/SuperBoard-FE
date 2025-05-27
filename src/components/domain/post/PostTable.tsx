@@ -1,6 +1,5 @@
-// src/components/PostTable.tsx
 import React from 'react';
-import type { PostLine } from '../types'; // 공용 타입 임포트
+import type { PostLine } from '../../../types/index'; // 공용 타입 임포트
 
 interface PostTableProps {
   posts: PostLine[];
