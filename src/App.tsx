@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 // import BoardHeader from './components/BoardHeader'; // 삭제
 // import NewPostButton from './components/NewPostButton'; // 삭제

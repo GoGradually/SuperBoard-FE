@@ -18,9 +18,6 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
   const [editError, setEditError] = useState<string | null>(null);
   const [isEditSubmitting, setIsEditSubmitting] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const [replyContents, setReplyContents] = useState('');
-  const [isSubmittingReply, setIsSubmittingReply] = useState(false);
-  const [replyError, setReplyError] = useState<string | null>(null);
 
   const handleEditToggle = () => {
     if (isEditing) {
@@ -66,8 +63,6 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
 
   const handleReplyFormToggle = () => {
     setShowReplyForm(!showReplyForm);
-    setReplyContents('');
-    setReplyError(null);
   };
 
   const handleReplySubmitSuccess = () => {
@@ -85,22 +80,22 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
             <p className="text-sm text-gray-700 whitespace-pre-wrap flex-grow break-words leading-relaxed">{comment.contents}</p>
             <div className="flex-shrink-0 ml-3 space-x-2">
               {level === 0 && (
-                <button onClick={handleReplyFormToggle} className="text-xs font-medium text-green-600 hover:text-green-800 focus:outline-none" disabled={isEditSubmitting || isSubmittingReply}>답글</button>
+                <button onClick={handleReplyFormToggle} className="text-xs font-medium text-green-600 hover:text-green-800 focus:outline-none" disabled={isEditSubmitting}>답글</button>
               )}
-              <button onClick={handleEditToggle} className="text-xs font-medium text-blue-600 hover:text-blue-800 focus:outline-none" disabled={isEditSubmitting || isSubmittingReply}>수정</button>
-              <button onClick={handleDelete} className="text-xs font-medium text-red-600 hover:text-red-800 focus:outline-none" disabled={isEditSubmitting || isSubmittingReply}>삭제</button>
+              <button onClick={handleEditToggle} className="text-xs font-medium text-blue-600 hover:text-blue-800 focus:outline-none" disabled={isEditSubmitting}>수정</button>
+              <button onClick={handleDelete} className="text-xs font-medium text-red-600 hover:text-red-800 focus:outline-none" disabled={isEditSubmitting}>삭제</button>
             </div>
           </div>
         ) : (
-          <div className="space-y-2">
+          <form onSubmit={handleUpdateSubmit} className="space-y-2" id={`comment-edit-form-${comment.id}`}>
             <textarea value={editedContents} onChange={(e) => setEditedContents(e.target.value)} rows={3} className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500 shadow-inner bg-gray-50" disabled={isEditSubmitting} placeholder="댓글 수정..."/>
             {editError && <p className="text-xs text-red-600 mt-1">{editError}</p>}
             <div className="flex justify-end space-x-2 items-center">
               {isEditSubmitting && <p className="text-xs text-gray-500 mr-2">처리 중...</p>}
-              <button onClick={handleEditToggle} className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md focus:outline-none" disabled={isEditSubmitting}>취소</button>
-              <button type="submit" form="comment-form" className="px-3 py-1 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md focus:outline-none" disabled={isEditSubmitting || !editedContents.trim()}>저장</button>
+              <button onClick={handleEditToggle} type="button" className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md focus:outline-none" disabled={isEditSubmitting}>취소</button>
+              <button type="submit" className="px-3 py-1 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md focus:outline-none" disabled={isEditSubmitting || !editedContents.trim()}>저장</button>
             </div>
-          </div>
+          </form>
         )}
       </div>
 

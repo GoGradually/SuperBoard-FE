@@ -24,7 +24,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ onClose }) => {
     // console.log('[NewPostForm.tsx] handleSubmit: Attempting to create post with title:', title);
     try {
       // await new Promise(resolve => setTimeout(resolve, 1000)); // 가상 지연 시간
-      const result = await createPostAPI({ title, contents }); 
+      await createPostAPI({ title, contents }); 
       // console.log('[NewPostForm.tsx] handleSubmit: createPostAPI successful. Result (URI):', result, 'Calling onClose(true).');
       onClose(true); // 성공 시 true 전달하여 목록 새로고침
     } catch (err) {
