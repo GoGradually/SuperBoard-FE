@@ -29,6 +29,9 @@ const PostTable: React.FC<PostTableProps> = ({ posts, onPostClick }) => {
             <th scope="col" className="px-6 py-3 text-center">
             댓글 수
           </th>
+            <th scope="col" className="px-6 py-3 text-center">
+            조회수
+          </th>
         </tr>
       </thead>
         <tbody>
@@ -47,6 +50,9 @@ const PostTable: React.FC<PostTableProps> = ({ posts, onPostClick }) => {
               </td>
               <td className="px-6 py-4 text-center">
                 {post.commentCount}
+              </td>
+              <td className="px-6 py-4 text-center">
+                {post.viewCount}
               </td>
             </tr>
           ))}

@@ -5,6 +5,7 @@ export interface PostLine {
   postId: number;
   postTitle: string;
   commentCount: number;
+  viewCount: number;
 }
 
 export interface PostsApiResponse {
@@ -17,6 +18,7 @@ export interface PostDetailResponse {
   title: string;
   contents: string;
   comments: Comment[];
+  viewCount: number;
 }
 
 export interface CreatePostData {
