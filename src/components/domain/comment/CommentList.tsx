@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import type { Comment as CommentType, CommentWithChildren } from '../../../types/comment.types';
+import React, { useState } from 'react';
+import type { Comment as CommentType } from '../../../types/comment.types';
 import CommentItem from './CommentItem';
 import CommentForm from './CommentForm';
 import { updateCommentAPI, deleteCommentAPI } from '../../../services/comment.api';
-import { buildCommentTree } from '../../../utils/commentUtils';
 import { ApiError } from '../../../services/apiErrors';
 
 interface CommentListProps {
@@ -13,14 +12,7 @@ interface CommentListProps {
 }
 
 const CommentList: React.FC<CommentListProps> = ({ postId, commentsData, onCommentsUpdated }) => {
-  const [comments, setComments] = useState<CommentType[]>(commentsData);
-  const [commentTree, setCommentTree] = useState<CommentWithChildren[]>(buildCommentTree(commentsData));
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setComments(commentsData);
-    setCommentTree(buildCommentTree(commentsData));
-  }, [commentsData]);
 
   const handleCommentCreated = async () => {
     setError(null);
@@ -63,15 +55,9 @@ const CommentList: React.FC<CommentListProps> = ({ postId, commentsData, onComme
     }
   };
 
-  const handleReplyCreatedInItem = () => {
-    if (onCommentsUpdated) {
-      onCommentsUpdated();
-    }
-  };
-
   return (
     <div className="mt-8 pt-6 border-t border-gray-200">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">댓글 ({comments.length})</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">댓글 ({commentsData.length})</h2>
       {error && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
           <p>{error}</p>
@@ -79,17 +65,15 @@ const CommentList: React.FC<CommentListProps> = ({ postId, commentsData, onComme
       )}
       <CommentForm postId={postId} onSubmitSuccess={handleCommentCreated} />
 
-      {commentTree.length > 0 ? (
+      {commentsData.length > 0 ? (
         <ul className="space-y-4 mt-4">
-          {commentTree.map(commentNode => (
+          {commentsData.map(comment => (
             <CommentItem
-              key={commentNode.id}
+              key={comment.id}
               postId={postId}
-              comment={commentNode}
+              comment={comment}
               onCommentUpdated={handleCommentUpdated}
               onCommentDeleted={handleCommentDeleted}
-              onReplyCreated={handleReplyCreatedInItem}
-              level={0}
             />
           ))}
         </ul>

@@ -13,7 +13,7 @@ export interface PostsApiResponse {
 }
 
 export interface PostDetailResponse {
-  id: number;
+  postId: number;
   title: string;
   contents: string;
   comments: Comment[];

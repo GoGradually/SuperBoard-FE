@@ -195,7 +195,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({ postId, onBackToList, o
             {postDetail.contents}
           </div>
           <CommentList 
-            postId={postDetail.id} 
+            postId={postDetail.postId} 
             commentsData={postDetail.comments || []}
             onCommentsUpdated={handleCommentsUpdated}
           />
