@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { PostDetailResponse } from '../../../types/index';
 import { fetchPostDetailAPI, updatePostAPI, deletePostAPI } from '../../../services/post.api';
 import CommentList from '../comment/CommentList';
+import PostLikeButtons from './PostLikeButtons';
 import { ApiError } from '../../../services/apiErrors';
 
 interface PostDetailViewProps {
@@ -194,6 +195,11 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({ postId, onBackToList, o
           <div className="prose max-w-none mb-8 text-gray-700" style={{ whiteSpace: 'pre-wrap' }}>
             {postDetail.contents}
           </div>
+          <PostLikeButtons 
+            postId={postDetail.postId}
+            likeCount={postDetail.likeCount || 0}
+            onLikeUpdated={loadPostDetail}
+          />
           <CommentList 
             postId={postDetail.postId} 
             commentsData={postDetail.comments || []}

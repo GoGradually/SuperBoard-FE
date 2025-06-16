@@ -66,4 +66,24 @@ export const searchPostsAPI = async (searchType: SearchType, query: string, page
     throw await handleApiResponseError(response, '게시글 검색에 실패했습니다.');
   }
   return response.json();
+};
+
+export const likePostAPI = async (postId: number): Promise<PostDetailResponse> => {
+  const response = await fetch(`${POST_API_URL}/${postId}/like`, {
+    method: 'POST',
+  });
+  if (!response.ok) {
+    throw await handleApiResponseError(response, '게시글 추천에 실패했습니다.');
+  }
+  return response.json();
+};
+
+export const dislikePostAPI = async (postId: number): Promise<PostDetailResponse> => {
+  const response = await fetch(`${POST_API_URL}/${postId}/dislike`, {
+    method: 'POST',
+  });
+  if (!response.ok) {
+    throw await handleApiResponseError(response, '게시글 비추천에 실패했습니다.');
+  }
+  return response.json();
 }; 
