@@ -61,7 +61,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, onCommentUpdated, on
       <div className={`bg-white p-3 rounded-lg shadow-sm border border-gray-200 ${isEditing ? 'ring-2 ring-blue-200' : ''}`}>
         {!isEditing ? (
           <div className="flex justify-between items-start">
-            <p className="text-sm text-gray-700 whitespace-pre-wrap flex-grow break-words leading-relaxed">{comment.contents}</p>
+            <p className="text-sm text-gray-700 whitespace-pre-wrap flex-grow break-words leading-relaxed max-w-[calc(100%-200px)]">{comment.contents}</p>
             <div className="flex-shrink-0 ml-3 space-x-2">
               <button onClick={handleEditToggle} className="text-xs font-medium text-blue-600 hover:text-blue-800 focus:outline-none" disabled={isEditSubmitting}>수정</button>
               <button onClick={handleDelete} className="text-xs font-medium text-red-600 hover:text-red-800 focus:outline-none" disabled={isEditSubmitting}>삭제</button>
