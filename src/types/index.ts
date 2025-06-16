@@ -7,6 +7,6 @@ export interface PostDetailResponse {
   postId: number;
   title: string;
   contents: string;
-  comments: Comment[];
+  comments: import('./comment.types').Comment[];
   likeCount: number;
 }
