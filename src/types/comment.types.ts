@@ -1,12 +1,7 @@
 export interface Comment {
-  id: number;
+  commentId: number;
   postId: number;
-  userId: number;
-  username: string;
   contents: string;
-  createdAt: string;
-  updatedAt: string;
-  parentId: number | null;
 }
 
 export interface CommentWithChildren extends Comment {

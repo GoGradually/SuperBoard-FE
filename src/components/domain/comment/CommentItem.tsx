@@ -32,10 +32,10 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
     setIsEditSubmitting(true);
     setEditError(null);
     try {
-      await onCommentUpdated(comment.id, editedContents);
+      await onCommentUpdated(comment.commentId, editedContents);
       setIsEditing(false);
     } catch (err: any) {
-      console.error(`Error updating comment ${comment.id}:`, err);
+      console.error(`Error updating comment ${comment.commentId}:`, err);
       if (err instanceof ApiError) {
         setEditError(err.backendMessage || '댓글 수정 중 오류가 발생했습니다.');
       } else {
@@ -49,9 +49,9 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
   const handleDelete = async () => {
     if (window.confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
       try {
-        await onCommentDeleted(comment.id);
+        await onCommentDeleted(comment.commentId);
       } catch (err) {
-        console.error(`Error deleting comment ${comment.id} from CommentItem:`, err);
+        console.error(`Error deleting comment ${comment.commentId} from CommentItem:`, err);
         alert('댓글 삭제 중 오류가 발생했습니다.');
       }
     }
@@ -69,7 +69,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpd
             </div>
           </div>
         ) : (
-          <form onSubmit={handleUpdateSubmit} className="space-y-2" id={`comment-edit-form-${comment.id}`}>
+          <form onSubmit={handleUpdateSubmit} className="space-y-2" id={`comment-edit-form-${comment.commentId}`}>
             <textarea value={editedContents} onChange={(e) => setEditedContents(e.target.value)} rows={3} className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500 shadow-inner bg-gray-50" disabled={isEditSubmitting} placeholder="댓글 수정..."/>
             {editError && <p className="text-xs text-red-600 mt-1">{editError}</p>}
             <div className="flex justify-end space-x-2 items-center">
