@@ -9,7 +9,7 @@ import NewPostForm from './components/domain/post/NewPostForm';
 import PostDetailView from './components/domain/post/PostDetailView';
 import RankingList from './components/domain/ranking/RankingList';
 import SearchBar from './components/domain/post/SearchBar';
-import { fetchViewsRankingAPI, fetchLikesRankingAPI } from './services/ranking.api';
+import { fetchLikesRankingAPI } from './services/ranking.api';
 import type { SearchType } from './services/post.api';
 import { usePosts } from './hooks/usePosts';
 
@@ -185,12 +185,6 @@ function App() {
           </main>
 
           <aside className="md:w-1/3 space-y-6 mt-10 md:mt-0">
-            <RankingList 
-              title="🏆 실시간 조회수 TOP 5" 
-              fetchRankingData={fetchViewsRankingAPI} 
-              onItemClick={handleRankingItemClick} 
-              refreshDependency={rankingRefreshTrigger}
-            />
             <RankingList 
               title="💖 실시간 추천수 TOP 5" 
               fetchRankingData={fetchLikesRankingAPI} 
