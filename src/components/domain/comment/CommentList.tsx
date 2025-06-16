@@ -70,7 +70,6 @@ const CommentList: React.FC<CommentListProps> = ({ postId, commentsData, onComme
           {commentsData.map(comment => (
             <CommentItem
               key={comment.commentId}
-              postId={postId}
               comment={comment}
               onCommentUpdated={handleCommentUpdated}
               onCommentDeleted={handleCommentDeleted}

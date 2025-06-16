@@ -4,12 +4,11 @@ import { ApiError } from '../../../services/apiErrors';
 
 interface CommentItemProps {
   comment: Comment;
-  postId: number;
   onCommentUpdated: (commentId: number, updatedContents: string) => Promise<void> | void;
   onCommentDeleted: (commentId: number) => Promise<void> | void;
 }
 
-const CommentItem: React.FC<CommentItemProps> = ({ comment, postId, onCommentUpdated, onCommentDeleted }) => {
+const CommentItem: React.FC<CommentItemProps> = ({ comment, onCommentUpdated, onCommentDeleted }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContents, setEditedContents] = useState(comment.contents);
   const [editError, setEditError] = useState<string | null>(null);
